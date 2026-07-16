@@ -81,40 +81,9 @@ The fine-tuned model is saved to `training/final_model/`.
 
 ---
 
-## 🌐 API Reference
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/summarize` | Accepts `{ "dialogue": "..." }` and returns `{ "summary": "..." }` |
-| `GET`  | `/health`    | Health check |
-
----
-
-## 📦 What Is (and Isn't) Committed
-
-| Path | Committed? | Reason |
-|------|-----------|--------|
-| `backend/` source code | ✅ Yes | Application logic |
-| `frontend/` source code | ✅ Yes | UI components |
-| `training/*.ipynb` | ✅ Yes | Training notebook |
-| `backend/venv/` | ❌ No | Regenerate with `pip install -r requirements.txt` |
-| `frontend/node_modules/` | ❌ No | Regenerate with `npm install` |
-| `training/*.csv` | ❌ No | Large dataset files — download separately |
-| `training/final_model/` | ❌ No | Large model weights — use Git LFS or HuggingFace Hub |
-| `training/results/` | ❌ No | Training artefacts |
-| `.env` files | ❌ No | Contains secrets — create from `.env.example` |
-
----
-
 ## 🛠️ Tech Stack
 
 - **Model** — HuggingFace Transformers (fine-tuned on SAMSum)
 - **Backend** — FastAPI + Uvicorn
 - **Frontend** — Next.js (React)
 - **Dataset** — [SAMSum Corpus](https://huggingface.co/datasets/samsum)
-
----
-
-## 📝 License
-
-MIT
