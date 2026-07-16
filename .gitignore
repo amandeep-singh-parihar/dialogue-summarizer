@@ -1,0 +1,108 @@
+# ============================================================
+#  Dialogue Summarizer — .gitignore
+# ============================================================
+
+# ------------------------------------------------------------
+# BACKEND  (Python / FastAPI)
+# ------------------------------------------------------------
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.py[cod]
+backend/*.pyo
+backend/.env
+backend/.env.*
+backend/venv/
+backend/.venv/
+backend/env/
+backend/*.log
+backend/dist/
+backend/build/
+backend/*.egg-info/
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/instance/
+
+# ------------------------------------------------------------
+# FRONTEND  (Next.js / Node)
+# ------------------------------------------------------------
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/dist/
+frontend/build/
+frontend/.env
+frontend/.env.*
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
+frontend/.vercel/
+
+# ------------------------------------------------------------
+# TRAINING  (Jupyter / ML / Large files)
+# ------------------------------------------------------------
+
+# Dataset CSVs — large raw data, should NOT be committed
+training/samsum-train.csv
+training/samsum-test.csv
+training/samsum-validation.csv
+
+# Trained model weights & checkpoints — too large for Git
+# Use Git LFS or upload to HuggingFace Hub / cloud storage
+training/final_model/
+training/results/
+training/checkpoints/
+
+# Jupyter artefacts
+training/.ipynb_checkpoints/
+training/**/.ipynb_checkpoints/
+training/.virtual_documents/
+training/**/.virtual_documents/
+
+# Anaconda project cache
+training/anaconda_projects/
+
+# General Python cache inside training
+training/__pycache__/
+training/**/__pycache__/
+
+# ------------------------------------------------------------
+# GENERAL
+# ------------------------------------------------------------
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python (root-level, if any scripts live here)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+.eggs/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
