@@ -1,65 +1,262 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 
 export default function Home() {
+  const [inputText, setInputText] = useState("");
+  const [summaryText, setSummaryText] = useState("");
+  const [hasContent, setHasContent] = useState(false);
+
+  const handleSummarize = async () => {
+    if (!inputText.trim()) return;
+  };
+
+  const charCount = inputText.length;
+  const wordCount =
+    inputText.trim() === "" ? 0 : inputText.trim().split(/\s+/).length;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "var(--bg-primary)",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <header style={{ padding: "0 24px" }}>
+        <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+          <div className="masthead">
+            <p className="masthead-label">AI-Powered Intelligence</p>
+            <h1 className="masthead-title">
+              Dialogue<span>Summarizer</span>
+            </h1>
+          </div>
+        </div>
+      </header>
+
+      <hr className="rule-double" style={{ margin: "0 24px" }} />
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "8px 24px",
+          borderBottom: "1px solid var(--border-color)",
+          maxWidth: "860px",
+          margin: "0 auto",
+          width: "100%",
+        }}
+      >
+        <span className="col-label">Input</span>
+        <span className="col-label" style={{ color: "var(--accent-red)" }}>
+          ✦ Live Editor
+        </span>
+        <span className="col-label">Output</span>
+      </div>
+
+      <main
+        style={{
+          flex: 1,
+          maxWidth: "860px",
+          margin: "0 auto",
+          width: "100%",
+          padding: "32px 24px 40px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "28px",
+        }}
+      >
+        <section>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+              marginBottom: "12px",
+              paddingBottom: "10px",
+              borderBottom: "1px solid var(--border-color)",
+            }}
+          >
+            <h2 className="section-head">Paste Your Dialogue</h2>
+          </div>
+
+          <textarea
+            id="dialogue-input"
+            className="input-textarea"
+            placeholder={`Paste or type any dialogue or conversation here…\n\nExample:\nAlice: Did you finish the report?\nBob: Yes, I sent it over this morning.\nAlice: Great, I'll review it before noon.`}
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            rows={10}
+            aria-label="Dialogue to summarize"
+          />
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginTop: "8px",
+            }}
+          >
+            <p className="char-counter">
+              {wordCount.toLocaleString()} words &nbsp;·&nbsp;{" "}
+              {charCount.toLocaleString()} characters
+            </p>
+          </div>
+        </section>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "16px",
+            padding: "16px 0",
+            borderTop: "1px solid var(--border-color)",
+            borderBottom: "1px solid var(--border-color)",
+          }}
+        >
+          <button
+            id="summarize-btn"
+            className="btn-summarize"
+            onClick={handleSummarize}
+            disabled={!inputText.trim()}
+            style={{
+              opacity: inputText.trim() ? 1 : 0.45,
+              cursor: inputText.trim() ? "pointer" : "not-allowed",
+            }}
+            aria-label="Summarize the dialogue"
+          >
+            {/* Lightning bolt icon */}
+            <svg
+              className="btn-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+            Summarize
+          </button>
+
+          <p
+            style={{
+              fontSize: "12px",
+              color: "var(--text-muted)",
+              fontStyle: "italic",
+              lineHeight: 1.5,
+            }}
+          >
+            {inputText.trim()
+              ? `Ready to condense ${wordCount.toLocaleString()} words into key insights.`
+              : "Paste a dialogue above to enable summarization."}
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        <section>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+              marginBottom: "12px",
+              paddingBottom: "10px",
+              borderBottom: "1px solid var(--border-color)",
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <h2 className="section-head">Summary</h2>
+            <span className="col-label" style={{ fontSize: "9px" }}>
+              AI-Generated · Concise · Accurate
+            </span>
+          </div>
+
+          <div
+            id="summary-output"
+            className={`output-box ${hasContent ? "has-content" : ""}`}
+            role="region"
+            aria-label="Summary output"
+            aria-live="polite"
           >
-            Documentation
-          </a>
-        </div>
+            {hasContent && <div className="output-accent-bar" />}
+
+            <div className="output-box-header">
+              <span className="output-box-label">Output</span>
+              <div className={`output-dot ${hasContent ? "active" : ""}`} />
+            </div>
+
+            <div className="output-body">
+              {hasContent && summaryText ? (
+                <p className="output-text animate-in">{summaryText}</p>
+              ) : (
+                <div className="output-placeholder">
+                  <span className="output-placeholder-icon">💬</span>
+                  <p className="output-placeholder-text">
+                    Your summary will appear here.
+                    <br />
+                    Paste a dialogue above and press{" "}
+                    <strong style={{ color: "var(--text-secondary)" }}>
+                      Summarize
+                    </strong>
+                    .
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {hasContent && summaryText && (
+            <div
+              className="stats-strip animate-in"
+              style={{ marginTop: "16px" }}
+            >
+              <div className="stat-item">
+                <div className="stat-value">
+                  {summaryText.trim().split(/\s+/).length}
+                </div>
+                <div className="stat-label">Words</div>
+              </div>
+
+              <div className="stat-item">
+                <div className="stat-value">
+                  {wordCount > 0
+                    ? Math.round(
+                        (1 -
+                          summaryText.trim().split(/\s+/).length / wordCount) *
+                          100,
+                      )
+                    : 0}
+                  %
+                </div>
+                <div className="stat-label">Reduced</div>
+              </div>
+
+              <div className="stat-item">
+                <div className="stat-value">
+                  ~{Math.ceil(summaryText.trim().split(/\s+/).length / 200)}m
+                </div>
+                <div className="stat-label">Read Time</div>
+              </div>
+            </div>
+          )}
+        </section>
       </main>
+
+      <footer style={{ padding: "0 24px" }}>
+        <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+          <div className="page-footer">
+            <span className="footer-brand">
+              Dialogue<span>Summarizer</span>
+            </span>
+            <span className="footer-note">
+              AI Dialogue Summarization Engine
+            </span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
