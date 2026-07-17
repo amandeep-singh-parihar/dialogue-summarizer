@@ -381,3 +381,68 @@ body {
 .animate-in {
   animation: fade-in 0.4s ease forwards;
 }
+
+/* ── Skeleton Shimmer ──────────────────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -600px 0;
+  }
+  100% {
+    background-position: 600px 0;
+  }
+}
+.skeleton-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 0;
+}
+.skeleton-line {
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-input) 25%,
+    var(--border-accent) 50%,
+    var(--bg-input) 75%
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* ── Dot Pulse ─────────────────────────────────────────── */
+@keyframes dot-bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+  40% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+.dot-pulse {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.dot-pulse span {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-red);
+  animation: dot-bounce 1.2s ease-in-out infinite;
+}
+.dot-pulse span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dot-pulse span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* ── Spin (button icon) ────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
