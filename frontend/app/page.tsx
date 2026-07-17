@@ -9,6 +9,17 @@ export default function Home() {
 
   const handleSummarize = async () => {
     if (!inputText.trim()) return;
+    const res = await fetch("http://localhost:8000/summarize", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: inputText }),
+    });
+
+    const data = await res.json();
+    setSummaryText(data.summary);
+    setHasContent(true);
   };
 
   const charCount = inputText.length;
