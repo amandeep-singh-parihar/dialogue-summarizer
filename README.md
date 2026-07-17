@@ -4,6 +4,14 @@ A full-stack AI application that automatically summarizes conversations and dial
 
 ---
 
+## 📸 Screenshots
+
+![Dialogue Summarizer — Input View](assets/436shots_so.png)
+
+![Dialogue Summarizer — Output View](assets/892shots_so.png)
+
+---
+
 ## 📁 Project Structure
 
 ```
